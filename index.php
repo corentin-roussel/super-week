@@ -20,15 +20,19 @@
 
     $router->map( 'GET', '/', function(){
         echo "<h1>Bienvenue sur l'accueil</h1>";
-    } , 'index');
+    } , 'home');
 
     $router->map( 'GET', '/users', function(){
         echo "<h1>Bienvenue sur la liste des utilisateurs</h1>";
     } , 'users');
 
-    $router->map( 'GET', '/users/[i:id]', function($id){
+    $router->map( 'GET', '/users[i:id]', function($id){
         echo "<h1>Bienvenue sur la page de l'utilisateur $id</h1>";
-    } , 'users/id');
+    } , 'usersid');
+
+    $router->map( 'GET', '/createUser', function(){
+        require_once ( __DIR__ . "/createUser.php");
+    } , 'createUser');
 
     $match = $router->match();
 
