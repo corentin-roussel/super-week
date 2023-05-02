@@ -36,6 +36,10 @@
         require_once ( __DIR__ . "/createUser.php");
     } , 'createUser');
 
+    $router->map('GET', '/register', function(){
+        require_once (__DIR__ . "/src/View/register.php");
+    }, 'register');
+
     $match = $router->match();
 
     if( is_array($match) && is_callable( $match['target'] ) ) {

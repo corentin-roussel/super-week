@@ -19,8 +19,9 @@ class ControllerUser
              $fname = $faker->firstName();
              $lname = $faker->lastName();
              $email = strtolower("$fname.$lname@"). $faker->freeEmailDomain();
+             $password = "azerty";
 
-             $ModelUser->fakerUserDB($fname, $lname, $email);
+             $ModelUser->fakerUserDB($fname, $lname, $email, $password);
         }
     }
 
