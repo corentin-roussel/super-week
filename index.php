@@ -1,6 +1,7 @@
 <?php
     require_once ("vendor/autoload.php");
     use App\Controller\ControllerUser;
+    use App\Controller\AuthController;
 
 //*                    // Match all request URIs
 //[i]                  // Match an integer
@@ -38,9 +39,16 @@
 
     $router->map('GET', '/register', function(){
         require_once (__DIR__ . "/src/View/register.php");
-    }, 'register');
+    }, 'registerForm');
 
-    $match = $router->match();
+    $router->map('POST', '/register', function(){
+        require_once (__DIR__ . "/src/View/register.php");
+        $AuthController = new AuthController();
+        $AuthController->authController($_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password']);
+    }, 'registerInsert');
+
+
+$match = $router->match();
 
     if( is_array($match) && is_callable( $match['target'] ) ) {
         call_user_func_array( $match['target'], $match['params'] );

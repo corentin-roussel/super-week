@@ -14,7 +14,7 @@
     <title>Register</title>
 </head>
 <body>
-    <form action="" id="form-register">
+    <form action="" method="POST" id="form-register">
         <label for="first_name">First Name</label>
         <input type="text" name="first_name" id="first_name">
 
