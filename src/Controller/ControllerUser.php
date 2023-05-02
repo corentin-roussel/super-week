@@ -23,4 +23,10 @@ class ControllerUser
              $ModelUser->fakerUserDB($fname, $lname, $email);
         }
     }
+
+    public function getAllUser() {
+        $ModelUser = new ModelUser();
+        echo json_encode($ModelUser->getUserDB(),JSON_PRETTY_PRINT);
+        die();
+    }
 }

@@ -1,5 +1,6 @@
 <?php
     require_once ("vendor/autoload.php");
+    use App\Controller\ControllerUser;
 
 //*                    // Match all request URIs
 //[i]                  // Match an integer
@@ -23,7 +24,8 @@
     } , 'home');
 
     $router->map( 'GET', '/users', function(){
-        echo "<h1>Bienvenue sur la liste des utilisateurs</h1>";
+        $ControllerUser = new ControllerUser();
+        $ControllerUser->getAllUser();
     } , 'users');
 
     $router->map( 'GET', '/users[i:id]', function($id){
