@@ -24,11 +24,12 @@ class ModelUser
 
     public function fakerUserDB($firstName, $lastName, $email)
     {
-        $req = $this->getConn()->prepare("INSERT INTO user (email, first_name, last_name) VALUES (:email, :first_name, :last_name)");
+        $req = $this->getConn()->prepare("INSERT INTO user (email, first_name, last_name, password) VALUES (:email, :first_name, :last_name, :password)");
         $req->execute([
             ":email" => $email,
             ":first_name" => $firstName,
-            ":last_name" => $lastName
+            ":last_name" => $lastName,
+            ":password" => password_verify("azerty", PASSWORD_DEFAULT)
         ]);
     }
 

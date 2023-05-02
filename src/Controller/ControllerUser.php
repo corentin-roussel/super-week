@@ -13,12 +13,12 @@ class ControllerUser
     public function fakerUserDB() {
         $faker = Faker\Factory::create('fr_FR');
         $ModelUser = new ModelUser();
-        for($i = 0; $i < 10; $i++)
+        for($i = 0; $i < 30; $i++)
         {
 
-             $fname = $faker->firstName() . "\n";
-             $lname = $faker->lastName() . "\n";
-             $email = strtolower($fname).".".strtolower($lname) . $faker->safeEmailDomain() . "\n";
+             $fname = $faker->firstName();
+             $lname = $faker->lastName();
+             $email = strtolower("$fname.$lname@"). $faker->freeEmailDomain();
 
              $ModelUser->fakerUserDB($fname, $lname, $email);
         }
