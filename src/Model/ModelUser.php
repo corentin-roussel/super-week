@@ -32,4 +32,10 @@ class ModelUser
         ]);
     }
 
+    public function getUserDB() {
+        $req = $this->getConn()->prepare("SELECT * FROM user");
+        $req->execute([]);
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
