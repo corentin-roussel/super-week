@@ -44,8 +44,18 @@
     $router->map('POST', '/register', function(){
         require_once (__DIR__ . "/src/View/register.php");
         $AuthController = new AuthController();
-        $AuthController->authController($_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password']);
+        $AuthController->authController($_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password'], $_POST['conf_pass']);
     }, 'registerInsert');
+
+    $router->map( 'GET', '/login', function() {
+        require_once (__DIR__ . "/src/View/login.php");
+    }, 'loginForm');
+
+    $router->map('POST', '/login', function(){
+        require_once (__DIR__ . "/src/View/login.php");
+        $AuthController = new AuthController();
+        $AuthController->connController($_POST['email'], $_POST['password']);
+    }, 'loginInsert');
 
 
 $match = $router->match();
