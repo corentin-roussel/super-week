@@ -40,13 +40,22 @@ class ModelUser
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getOneUser($last_name) {
-        $req = $this->getConn()->prepare("SELECT * FROM user WHERE last_name = :last_name ");
+    public function rowCountUser($email) {
+        $req = $this->getConn()->prepare("SELECT * FROM user WHERE email = :email ");
         $req->execute([
-            ":last_name" => $last_name
+            ":email" => $email
         ]);
 
         return $req->rowCount();
+    }
+
+    public function getUser($email) {
+        $req = $this->getConn()->prepare("SELECT * FROM user WHERE email = :email ");
+        $req->execute([
+            ":email" => $email
+        ]);
+
+        return $req->fetch(PDO::FETCH_ASSOC);
     }
 
 }

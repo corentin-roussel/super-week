@@ -27,6 +27,9 @@
         <label for="password">Password</label>
         <input type="password" name="password" id="password">
 
+        <label for="conf_pass">Confirmation password</label>
+        <input type="password" name="conf_pass" id="conf_pass">
+
         <input type="submit" name="submit" id="submit">
     </form>
 </body>

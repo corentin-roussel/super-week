@@ -3,6 +3,8 @@
 
 namespace App\Controller;
 
+session_start();
+
 use  Faker;
 use App\Model\ModelUser;
 
