@@ -1,7 +1,10 @@
 <?php
     require_once ("vendor/autoload.php");
+
+
     use App\Controller\ControllerUser;
     use App\Controller\AuthController;
+    use App\Controller\BookController;
 
 //*                    // Match all request URIs
 //[i]                  // Match an integer
@@ -56,6 +59,37 @@
         $AuthController = new AuthController();
         $AuthController->connController($_POST['email'], $_POST['password']);
     }, 'loginInsert');
+
+    $router->map('GET', '/users/[i:id]', function($id) {
+        $UserController = new ControllerUser();
+        $UserController->getOneUser($id);
+    }, 'usersInfo');
+
+    $router->map( 'GET', '/books/write', function() {
+        require_once (__DIR__ . "/src/View/book.php");
+    }, 'bookForm');
+
+    $router->map('POST', '/books/write', function(){
+        require_once (__DIR__ . "/src/View/book.php");
+        $BookController = new BookController();
+        $UserController = new ControllerUser();
+        $user = $UserController->getOneUserById($_SESSION['user']['id']);
+        $BookController->bookController($_POST['title'], $_POST['content'], $user['id']);
+    }, 'bookInsert');
+
+    $router->map( 'GET', '/books', function() {
+        $BookController = new BookController();
+        $BookController->getAllBook();
+    }, 'books');
+
+    $router->map('GET', '/books/[i:id]', function($id) {
+        $BookController = new BookController();
+        $BookController->getBookById($id);
+    }, 'booksId');
+
+    $router->map( 'GET', '/logout', function() {
+        require_once (__DIR__ . "/src/View/disconnect.php");
+    }, 'disconnect');
 
 
 $match = $router->match();

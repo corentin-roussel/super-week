@@ -58,4 +58,13 @@ class ModelUser
         return $req->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getUserById($id) {
+        $req = $this->getConn()->prepare("SELECT * FROM user WHERE id = :id");
+        $req->execute([
+            ":id" => $id
+        ]);
+
+        return $req->fetch(PDO::FETCH_ASSOC);
+    }
+
 }

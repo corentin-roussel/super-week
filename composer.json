@@ -1,7 +1,8 @@
 {
   "require": {
     "altorouter/altorouter": "1.1.0",
-    "fakerphp/faker": "^1.21"
+    "fakerphp/faker": "^1.21",
+    "ext-pdo": "*"
   },
 
   "autoload": {

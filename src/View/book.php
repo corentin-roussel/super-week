@@ -1,5 +1,6 @@
 <?php
-    if (session_status() == PHP_SESSION_NONE) {session_start();}
+
+if (session_status() == PHP_SESSION_NONE) {session_start();}
 ?>
 
 <!doctype html>
@@ -13,14 +14,14 @@
 </head>
 <body>
 <form action="" method="POST" id="form-register">
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title">
 
-    <label for="email">E-mail</label>
-    <input type="email" name="email" id="email">
-
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password">
+    <label for="content">Content</label>
+    <input type="text" name="content" id="content">
 
     <input type="submit" name="submit" id="submit">
 </form>
 </body>
 </html>
+
