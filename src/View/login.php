@@ -1,8 +1,5 @@
 <?php
-
-session_start();
-
-var_dump($_SESSION);
+    if (session_status() == PHP_SESSION_NONE) {session_start();}
 ?>
 
 <!doctype html>
