@@ -57,6 +57,21 @@
         $AuthController->connController($_POST['email'], $_POST['password']);
     }, 'loginInsert');
 
+    $router->map('GET', '/users/[i:id]', function($id) {
+        $UserController = new ControllerUser();
+        $UserController->getOneUser($id);
+    }, 'usersInfo');
+
+    $router->map( 'GET', '/books/write', function() {
+        require_once (__DIR__ . "/src/View/book.php");
+    }, 'bookForm');
+
+    $router->map('POST', '/books/write', function(){
+        require_once (__DIR__ . "/src/View/book.php");
+        $AuthController = new AuthController();
+        $AuthController->connController($_POST['email'], $_POST['password']);
+    }, 'bookInsert');
+
 
 $match = $router->match();
 
