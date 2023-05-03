@@ -24,7 +24,7 @@
 
 
     $router->map( 'GET', '/', function(){
-        echo "<h1>Bienvenue sur l'accueil</h1>";
+        require_once (__DIR__ . '/src/View/home.php');
     } , 'home');
 
     $router->map( 'GET', '/users', function(){
