@@ -16,41 +16,29 @@
 
     </header>
     <main>
-        <form id="allUsers">
-            <label for="">All users</label>
-            <input type="submit" id="users">
-        </form>
+        <button type="button" id="allUsers">Show all users</button>
 
         <div id="placeAllUsers">
 
         </div>
 
-        <form id="oneUser" ">
-            <label for="">One user</label>
-            <input type="text" id="user">
+        <input type="text" id="user">
 
-            <input type="submit">
-        </form>
+        <button type="button" id="oneUser">Show one user</button>
 
         <div id="placeOneUser">
 
         </div>
 
-        <form id="allBook">
-            <label for="">All books</label>
-            <input type="submit">
-        </form>
+            <button type="button" id="allBooks">Show all books</button>
 
         <div id="placeAllBooks">
 
         </div>
 
-        <form id="oneBook">
-            <label for="">One book</label>
-            <input type="text" id="book">
+            <input type="text" id="book" >
 
-            <input type="submit">
-        </form>
+            <button type="button" id="oneBook">Show one book</button>
 
         <div id="placeOneBook">
 

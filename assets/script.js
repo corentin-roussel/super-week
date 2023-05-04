@@ -1,13 +1,14 @@
 let all_users = document.querySelector("#allUsers");
 let one_user = document.querySelector("#oneUser");
-let all_books = document.querySelector("#allBook");
+let all_books = document.querySelector("#allBooks");
 let one_book = document.querySelector("#oneBook");
 let all_user = document.querySelector("#user");
-let place_all_user = document.querySelector("#placeAllUsers");
-let place_one_user = document.querySelector("#placeOneUser");
-let place_all_book = document.querySelector("#placeAllBooks");
-let place_one_book = document.querySelector("#placeOneBook")
+const place_all_user = document.querySelector("#placeAllUsers");
+const place_one_user = document.querySelector("#placeOneUser");
+const place_all_book = document.querySelector("#placeAllBooks");
+const place_one_book = document.querySelector("#placeOneBook")
 let input_book = document.querySelector("#book")
+
 let display = (place, data)  =>{
     place.innerHTML = "";
     place.innerHTML = data;
@@ -21,10 +22,20 @@ const displayAllUsers = async(ev) => {
 
     const response = await fetch("http://localhost/super-week/users");
     const data = await response.json();
-    const string = JSON.stringify(data)
 
 
-    await display(place_all_user, string)
+    for(const user of data)
+    {
+        let div_user = document.createElement("div")
+        place_all_user.append(div_user);
+
+        div_user.innerHTML =        `
+                                        <h3>${user.first_name} ${user.last_name}</h3>
+                                        <p>${user.email}</p>
+                                    `
+    }
+
+
 }
 
 const displayOneUser = async(ev) => {
@@ -34,9 +45,11 @@ const displayOneUser = async(ev) => {
 
     const response = await fetch("http://localhost/super-week/users/" + all_user.value);
     const data = await response.json();
-    const string = JSON.stringify(data)
 
-    await display(place_one_user, string);
+    place_one_user.innerHTML =  `
+                                    <h3>${data.first_name} ${data.last_name}</h3>
+                                    <p>${data.email}</p>
+                                `
 }
 
 const displayAllBooks = async(ev) => {
@@ -47,10 +60,17 @@ const displayAllBooks = async(ev) => {
 
     const response = await fetch("http://localhost/super-week/books");
     const data = await response.json();
-    const string = JSON.stringify(data)
+console.log(data)
+    for(const book of data)
+    {
+        let div_book = document.createElement("div")
+        place_all_book.append(div_book);
 
-
-    await display(place_all_book, string)
+        div_book.innerHTML =        `
+                                        <h3>${book.title}</h3>
+                                        <p>${book.content}</p>
+                                    `
+    }
 }
 
 const displayOneBook = async(ev) => {
@@ -61,14 +81,17 @@ const displayOneBook = async(ev) => {
 
     const response = await fetch("http://localhost/super-week/books/" + input_book.value);
     const data = await response.json();
-    const string = JSON.stringify(data)
+
+    place_one_book.innerHTML =  `
+                                    <h3>${data.title}</h3>
+                                    <p>${data.content}</p>
+                                `
 
 
-    await display(place_one_book, string)
 }
 
-all_users.addEventListener("submit", async(ev) => {
-    if(place_all_user.innerHTML.length  == 10)
+all_users.addEventListener("click", async(ev) => {
+    if(place_all_user.innerHTML.length  <= 10)
     {
         await displayAllUsers(ev);
     }else {
@@ -76,12 +99,17 @@ all_users.addEventListener("submit", async(ev) => {
     }
 })
 
-one_user.addEventListener("submit", async(ev) => {
+one_user.addEventListener("click", async(ev) => {
     await displayOneUser(ev);
+
+    if(place_one_user.innerHTML === "false")
+    {
+        place_one_user.innerHTML = "There is no user with this id";
+    }
 })
 
-all_books.addEventListener("submit", async(ev) => {
-    if(place_all_book.innerHTML.length  == 10)
+all_books.addEventListener("click", async(ev) => {
+    if(place_all_book.innerHTML.length  <= 10)
     {
         await displayAllBooks(ev);
     }else {
@@ -89,6 +117,11 @@ all_books.addEventListener("submit", async(ev) => {
     }
 })
 
-one_book.addEventListener("submit", async(ev) => {
+one_book.addEventListener("click", async(ev) => {
     await displayOneBook(ev);
+
+    if(place_one_book.innerHTML === "false")
+    {
+        place_one_book.innerHTML = "There is no book with this id";
+    }
 })

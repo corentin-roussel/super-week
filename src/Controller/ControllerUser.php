@@ -3,10 +3,11 @@
 
 namespace App\Controller;
 
-session_start();
+
 
 use  Faker;
-use App\Model\ModelUser;
+use App\Model\UserModel;
+use JetBrains\PhpStorm\NoReturn;
 
 class ControllerUser
 {
@@ -14,7 +15,7 @@ class ControllerUser
 
     public function fakerUserDB() {
         $faker = Faker\Factory::create('fr_FR');
-        $ModelUser = new ModelUser();
+        $ModelUser = new UserModel();
         for($i = 0; $i < 30; $i++)
         {
 
@@ -27,20 +28,20 @@ class ControllerUser
         }
     }
 
-    public function getAllUser() {
-        $ModelUser = new ModelUser();
-        echo json_encode($ModelUser->getUserDB(),JSON_PRETTY_PRINT);
+    public function getAllUser($table) {
+        $ModelUser = new UserModel();
+        echo json_encode($ModelUser->getAllFromTable($table),JSON_PRETTY_PRINT);
         die();
     }
 
-    public function getOneUser($id):object  {
-        $ModelUser = new ModelUser();
-        echo json_encode($ModelUser->getUserById($id),JSON_PRETTY_PRINT);
+    public function getOneUser(?string $table, ?array $array):object  {
+        $ModelUser = new UserModel();
+        echo json_encode($ModelUser->getOneFieldWhere($table ,$array),JSON_PRETTY_PRINT);
         die();
     }
 
-    public function getOneUserById($id):array {
-        $ModelUser = new ModelUser();
-        return $ModelUser->getUserById($id);
+    public function getOneUserById(?string $table, ?array $array):array {
+        $ModelUser = new UserModel();
+        return $ModelUser->getOneFieldWhere($table,$array);
     }
 }

@@ -2,16 +2,16 @@
 
 namespace App\Controller;
 
-session_start();
 
-use App\Model\ModelUser;
+
+use App\Model\UserModel;
 
 class AuthController
 {
 
-    public function authController($firstname, $lastname, $email, $password, $conf_pass) {
+    public function authController($firstname, $lastname, $email, $password, $conf_pass):void {
 
-        $UserModel = new ModelUser();
+        $UserModel = new UserModel();
 
         $check_user = $UserModel->rowCountUser($email);
         if($check_user !== 1 && $password === $conf_pass)
@@ -21,20 +21,26 @@ class AuthController
 
     }
 
-    public function connController($email, $password)
+    public function connController(?array $array):void
     {
-        $UserModel = new ModelUser();
+        $UserModel = new UserModel();
+        var_dump($array);
 
-        $check_conn = $UserModel->rowCountUser($email);
+        $check_conn = $UserModel->rowCountUser($array['email']);
+
+        var_dump($check_conn);
         if($check_conn === 1)
         {
 
-            $user = $UserModel->getUser($email);
+            $user = $UserModel->getOneFieldWhere("user", ["email" => $array['email']]);
+            var_dump($user);
 
-            if(password_verify($password, $user['password']))
+            if(password_verify($array['password'], $user['password']))
+            {
+                $_SESSION['user'] = ['id' => $user['id'], 'first_name' => $user['first_name'], 'last_name' => $user['last_name']];
+                var_dump($_SESSION);
+            }
 
-            if (session_status() == PHP_SESSION_NONE) {session_start();}
-            $_SESSION['user'] = ['id' => $user['id'], 'first_name' => $user['first_name'], 'last_name' => $user['last_name']];
         }
     }
 

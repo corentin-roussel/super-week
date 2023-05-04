@@ -1,7 +1,6 @@
 <?php
     require_once ("vendor/autoload.php");
 
-
     use App\Controller\ControllerUser;
     use App\Controller\AuthController;
     use App\Controller\BookController;
@@ -20,6 +19,8 @@
 
     $router = new AltoRouter();
 
+session_start();
+
     $router->setBasePath('/super-week');
 
 
@@ -29,7 +30,7 @@
 
     $router->map( 'GET', '/users', function(){
         $ControllerUser = new ControllerUser();
-        $ControllerUser->getAllUser();
+        $ControllerUser->getAllUser("user");
     } , 'users');
 
     $router->map( 'GET', '/users[i:id]', function($id){
@@ -57,12 +58,12 @@
     $router->map('POST', '/login', function(){
         require_once (__DIR__ . "/src/View/login.php");
         $AuthController = new AuthController();
-        $AuthController->connController($_POST['email'], $_POST['password']);
+        $AuthController->connController(["email" => $_POST['email'], "password" => $_POST['password']]);
     }, 'loginInsert');
 
     $router->map('GET', '/users/[i:id]', function($id) {
         $UserController = new ControllerUser();
-        $UserController->getOneUser($id);
+        $UserController->getOneUser("user" ,["id" => $id]);
     }, 'usersInfo');
 
     $router->map( 'GET', '/books/write', function() {
@@ -73,18 +74,18 @@
         require_once (__DIR__ . "/src/View/book.php");
         $BookController = new BookController();
         $UserController = new ControllerUser();
-        $user = $UserController->getOneUserById($_SESSION['user']['id']);
-        $BookController->bookController($_POST['title'], $_POST['content'], $user['id']);
+        $user = $UserController->getOneUserById("user",["id" => $_SESSION['user']['id']]);
+        $BookController->bookController("book", ["title" =>$_POST['title'], "content" => $_POST['content'], "id_user" => $user['id']]);
     }, 'bookInsert');
 
     $router->map( 'GET', '/books', function() {
         $BookController = new BookController();
-        $BookController->getAllBook();
+        $BookController->getAllFromBook('book');
     }, 'books');
 
     $router->map('GET', '/books/[i:id]', function($id) {
         $BookController = new BookController();
-        $BookController->getBookById($id);
+        $BookController->getBookById("book",["id" => $id]);
     }, 'booksId');
 
     $router->map( 'GET', '/logout', function() {
