@@ -30,18 +30,18 @@ class ControllerUser
 
     public function getAllUser($table) {
         $ModelUser = new UserModel();
-        echo json_encode($ModelUser->getAllFromTable($table),JSON_PRETTY_PRINT);
+        echo json_encode($ModelUser->getAll($table),JSON_PRETTY_PRINT);
         die();
     }
 
     public function getOneUser(?string $table, ?array $array):object  {
         $ModelUser = new UserModel();
-        echo json_encode($ModelUser->getOneFieldWhere($table ,$array),JSON_PRETTY_PRINT);
+        echo json_encode($ModelUser->getOne($table ,$array),JSON_PRETTY_PRINT);
         die();
     }
 
     public function getOneUserById(?string $table, ?array $array):array {
         $ModelUser = new UserModel();
-        return $ModelUser->getOneFieldWhere($table,$array);
+        return $ModelUser->getOne($table,$array);
     }
 }

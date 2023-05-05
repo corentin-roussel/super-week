@@ -2,26 +2,11 @@
 
 namespace App\Model;
 use PDO;
-class UserModel extends Model
+class UserModel extends AbstractModel
 {
-    private ?PDO $conn;
+    protected string $table = "user";
 
-    public function getConn():PDO {
-        try {
-            return $conn = new PDO('mysql:host=localhost;dbname=super_week', 'root', '');
-        } catch (\PDOException $e) {
-            print "Erreur !: " . $e->getMessage() . "<br/>";
-            die();
-        }
-    }
 
-    public function getAllFromTable($table):array | bool
-    {
-        $req = $this->getConn()->prepare("SELECT * FROM $table");
-        $req->execute();
-
-        return $req->fetchAll(PDO::FETCH_ASSOC);
-    }
 
     public function fakerUserDB($firstName, $lastName, $email, $password):void
     {
@@ -44,26 +29,4 @@ class UserModel extends Model
 
         return $req->rowCount();
     }
-
-    public function getOneFieldWhere(?string $table, ?array $array):array | bool {
-
-
-        $queryString = "SELECT * FROM $table WHERE ";
-        foreach ($array as $key => $values)
-        {
-            $queryString.= "$key=:$key AND ";
-        }
-
-
-        $queryString = substr_replace($queryString, "", -5);
-
-
-        $req = $this->getConn()->prepare($queryString);
-        $req->execute(
-            $array
-        );
-
-        return $req->fetch(PDO::FETCH_ASSOC);
-    }
-
 }

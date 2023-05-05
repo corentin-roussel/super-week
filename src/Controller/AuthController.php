@@ -32,7 +32,7 @@ class AuthController
         if($check_conn === 1)
         {
 
-            $user = $UserModel->getOneFieldWhere("user", ["email" => $array['email']]);
+            $user = $UserModel->getOne("user", ["email" => $array['email']]);
             var_dump($user);
 
             if(password_verify($array['password'], $user['password']))

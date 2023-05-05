@@ -23,7 +23,6 @@ class BookController
             }
 
         }
-        var_dump($result);
         return $result;
     }
 
@@ -41,20 +40,17 @@ class BookController
         {
             echo "Please fill all the field";
         }
-
-
-
     }
 
     public function getAllFromBook(string $table):object {
         $BookModel = new BookModel();
-        echo json_encode($BookModel->getAllFromTable($table), JSON_PRETTY_PRINT);
+        echo json_encode($BookModel->getAll($table), JSON_PRETTY_PRINT);
         die();
     }
 
     public function getBookById(string $table, array $array):object {
         $BookModel = new BookModel();
-        echo json_encode($BookModel->getOneFieldWhere($table , $array), JSON_PRETTY_PRINT);
+        echo json_encode($BookModel->getOne($table , $array), JSON_PRETTY_PRINT);
         die();
     }
 }
